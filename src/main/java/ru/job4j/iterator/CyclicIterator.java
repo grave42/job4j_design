@@ -8,7 +8,7 @@ public class CyclicIterator<T> implements Iterator<T> {
 
     private List<T> data;
 
-    private int index = 0;
+    private int index;
 
     public CyclicIterator(List<T> data) {
         this.data = data;
