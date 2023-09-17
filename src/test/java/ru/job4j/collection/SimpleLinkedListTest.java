@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 class SimpleLinkedListTest {
 
@@ -53,12 +54,12 @@ class SimpleLinkedListTest {
         assertThat(it.next()).isEqualTo(1);
     }
 
-//    @Test
-//    void whenEmptyIterHashNextFalse() {
-//        LinkedList<Integer> list = new SimpleLinkedList<>();
-//        Iterator<Integer> it = list.iterator();
-//        assertThat(it.hasNext()).isFalse();
-//    }
+    @Test
+    void whenEmptyIterHashNextFalse() {
+        list = new SimpleLinkedList<>();
+        Iterator<Integer> it = list.iterator();
+        assertThat(it.hasNext()).isFalse();
+    }
 
     @Test
     void whenAddIterMultiHasNextTrue() {
