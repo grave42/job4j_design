@@ -38,6 +38,7 @@ public class ForwardLinked<T> implements Iterable<T> {
             throw new NoSuchElementException("Список пуст");
         }
         T deletedValue = head.item;
+        head.item = null;
         head = head.next;
         size--;
         modCount++;
