@@ -6,10 +6,13 @@ public class SimpleQueue<T> {
     private final SimpleStack<T> in = new SimpleStack<>();
     private final SimpleStack<T> out = new SimpleStack<>();
 
-    int sizeIn = 0;
-    int sizeOut = 0;
+    private int sizeIn = 0;
+    private int sizeOut = 0;
 
     public T poll() {
+        if (sizeOut == 0 && sizeIn == 0) {
+            throw new NoSuchElementException("Queue is empty");
+        }
         if (sizeOut == 0) {
             while (sizeIn != 0) {
                 out.push(in.pop());
@@ -18,9 +21,6 @@ public class SimpleQueue<T> {
             }
         }
         sizeOut--;
-        if (sizeOut < 0) {
-            throw new NoSuchElementException("Queue is empty");
-        }
         return out.pop();
     }
 
