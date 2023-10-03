@@ -19,8 +19,7 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
 
     @Override
     public boolean put(K key, V value) {
-        float lol = (float) (count * 100 / capacity) / 100;
-        if (lol >= LOAD_FACTOR) {
+        if ((float) count / capacity >= LOAD_FACTOR) {
             expand();
         }
         int hk = Objects.hashCode(key);
