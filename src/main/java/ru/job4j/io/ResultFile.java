@@ -23,7 +23,7 @@ public class ResultFile {
             out.write(System.lineSeparator().getBytes());
             out.write("1 * 9 = 9".getBytes());
             out.write(System.lineSeparator().getBytes());
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
