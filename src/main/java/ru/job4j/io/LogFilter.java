@@ -35,7 +35,7 @@ public class LogFilter {
             for (String line : data) {
                 res.println(line);
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
