@@ -11,6 +11,7 @@ public class LogFilter {
         this.file = file;
     }
 
+
     public List<String> filter() {
         List<String> result = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(new FileReader(file))) {
