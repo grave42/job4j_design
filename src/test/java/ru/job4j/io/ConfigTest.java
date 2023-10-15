@@ -38,4 +38,13 @@ class ConfigTest {
             config.load();
         });
     }
+
+    @Test
+    void whenPairWithWrongTemplate3() {
+        String path = "./data/pair_wrong_template3.properties";
+        Config config = new Config(path);
+        assertThrows(IllegalArgumentException.class, () -> {
+            config.load();
+        });
+    }
 }
