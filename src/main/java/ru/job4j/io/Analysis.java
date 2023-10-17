@@ -6,16 +6,16 @@ public class Analysis {
     public void unavailable(String source, String target) {
         try (BufferedReader read = new BufferedReader(new FileReader(source));
              BufferedWriter write = new BufferedWriter(new FileWriter(target, true))) {
-            String currentRange = null;
+            StringBuilder currentRange = new StringBuilder();
             String line;
             while ((line = read.readLine()) != null) {
                 String[] parts = line.split(" ");
-                if ((parts[0].equals("400") || parts[0].equals("500")) && currentRange == null) {
-                    currentRange = parts[1] + ";";
-                } else if (currentRange != null && (parts[0].equals("200") || parts[0].equals("300"))) {
-                    currentRange += parts[1] + ";\n";
-                    write.write(currentRange);
-                    currentRange = null;
+                if (("400".equals(parts[0]) || "500".equals(parts[0])) && currentRange.length() == 0) {
+                    currentRange.append(parts[1]).append(";");
+                } else if (currentRange.length() > 0 && ("200".equals(parts[0]) || "300".equals(parts[0]))) {
+                    currentRange.append(parts[1]).append(";\n");
+                    write.write(currentRange.toString());
+                    currentRange.setLength(0);
                 }
             }
         } catch (IOException e) {
