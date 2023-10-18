@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class SearchFiles extends SimpleFileVisitor<Path> {
-    List<Path> result = new ArrayList<>();
+    private List<Path> result = new ArrayList<>();
 
-    Predicate<Path> condition;
+    private Predicate<Path> condition;
 
     public SearchFiles(Predicate<Path> condition) {
         this.condition = condition;
@@ -20,7 +20,7 @@ public class SearchFiles extends SimpleFileVisitor<Path> {
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        if (condition.test(file.toAbsolutePath())) {
+        if (condition.test(file.toRealPath())) {
             result.add(file);
         }
         return FileVisitResult.CONTINUE;
