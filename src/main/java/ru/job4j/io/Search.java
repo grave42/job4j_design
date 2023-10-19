@@ -1,5 +1,6 @@
 package ru.job4j.io;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -24,11 +25,12 @@ public class Search {
         if (args.length != 2) {
             throw new IllegalArgumentException("Root folder is null. Usage  ROOT_FOLDER.");
         }
-        if (!args[0].startsWith("./")) {
+        File directory = new File(args[0]);
+        if (!directory.exists() && !directory.isDirectory()) {
             throw new IllegalArgumentException("First argument is not directory path");
         }
-        if (!args[1].startsWith(".")) {
-            throw new IllegalArgumentException("Second argument must start from dot");
+        if (args[1].length() < 1) {
+            throw new IllegalArgumentException("Second argument is not file extension ");
         }
     }
 }
