@@ -31,14 +31,14 @@ public class ConsoleChat {
             String randomAnswer = allPhrases.get(randomIndex);
             String userInput = scanner.nextLine();
             logfile.add(userInput);
-            if (userInput.equals(OUT)) {
+            if (OUT.equals(userInput)) {
                 logfile.add(OUT);
                 scanner.close();
                 isRuning = false;
-            } else if (userInput.equals(STOP)) {
+            } else if (STOP.equals(userInput)) {
                 respondToInput = false;
                 logfile.add(STOP);
-            } else if (userInput.equals(CONTINUE)) {
+            } else if (CONTINUE.equals(userInput)) {
                 respondToInput = true;
                 logfile.add(CONTINUE);
             } else if (respondToInput) {
