@@ -1,7 +1,6 @@
 package ru.job4j.io;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,9 +9,9 @@ public class CSVReader {
     public static void handle(ArgsName argsName) throws Exception {
         String[] filters = argsName.get("filter").split(",");
         List<Integer> csvHeadsIndex = new ArrayList<>();
-        try {
-            FileInputStream fileInputStream = new FileInputStream(argsName.get("path"));
-            Scanner scanner = new Scanner(fileInputStream);
+        try (FileInputStream fileInputStream = new FileInputStream(argsName.get("path"));
+             Scanner scanner = new Scanner(fileInputStream);
+             PrintWriter writer = new PrintWriter(new FileWriter(argsName.get("out")))) {
             if (scanner.hasNextLine()) {
                 String firstLine = scanner.nextLine();
                 List<String> cells = List.of(firstLine.split(argsName.get("delimiter")));
@@ -22,7 +21,12 @@ public class CSVReader {
                         csvHeadsIndex.add(index);
                     }
                 }
-                System.out.println(String.join(argsName.get("delimiter"), filters));
+                if ("stdout".equals(argsName.get("out"))) {
+                    System.out.println(String.join(argsName.get("delimiter"), filters));
+                } else {
+                    writer.println(String.join(argsName.get("delimiter"), filters));
+                }
+
 
             }
             while (scanner.hasNextLine()) {
@@ -32,15 +36,15 @@ public class CSVReader {
                 for (Integer ind : csvHeadsIndex) {
                     resLine.add(res.get(ind));
                 }
-                System.out.println(String.join(argsName.get("delimiter"), resLine));
+                if ("stdout".equals(argsName.get("out"))) {
+                    System.out.println(String.join(argsName.get("delimiter"), resLine));
+                } else {
+                    writer.println(String.join(argsName.get("delimiter"), resLine));
+                }
             }
-            scanner.close();
-            fileInputStream.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        String lol = "";
-
     }
 
     private static void valArgs(String[] args, ArgsName allArgs) {
@@ -53,9 +57,6 @@ public class CSVReader {
         }
         if (!(allArgs.get("delimiter").length() == 1) || !";".equals(allArgs.get("delimiter"))) {
             throw new IllegalArgumentException("It is not CSV delimiter");
-        }
-        if (!"stdout".equals(allArgs.get("out"))) {
-            throw new IllegalArgumentException("Wrong out parameter");
         }
     }
 
