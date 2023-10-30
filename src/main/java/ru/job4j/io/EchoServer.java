@@ -26,11 +26,11 @@ public class EchoServer {
                         List<String> params = List.of(matcher.group().split("="));
                         if ("msg".contains(params.get(0)) && "Bye".contains(params.get(1))) {
                             server.close();
+                        } else {
+                            System.out.println(str);
                         }
-                    } else {
-                        System.out.println(str);
-                        out.flush();
                     }
+                    out.flush();
                 }
             }
         }
