@@ -1,9 +1,14 @@
 package ru.job4j.io;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.regex.*;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class EchoServer {
     public static void main(String[] args) throws IOException {
@@ -15,12 +20,19 @@ public class EchoServer {
                              new InputStreamReader(socket.getInputStream()))) {
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                     String str = in.readLine();
-                    if (str != null && !str.isEmpty()) {
-                        if (str.contains("msg=Bye")) {
+                    Pattern pattern = Pattern.compile("msg=[^ ]+");
+                    Matcher matcher = pattern.matcher(str);
+                    if (matcher.find()) {
+                        List<String> params = List.of(matcher.group().split("="));
+                        if ("msg".contains(params.get(0)) && "Exit".contains(params.get(1))) {
                             server.close();
+                        } else if ("msg".contains(params.get(0)) && "Hello".contains(params.get(1))) {
+                            out.write("Hello, dear friend.".getBytes());
                         } else {
-                            System.out.println(str);
+                            out.write(String.format("%s", params.get(1)).getBytes());
                         }
+                    } else {
+                        System.out.println(str);
                     }
                     out.flush();
                 }
