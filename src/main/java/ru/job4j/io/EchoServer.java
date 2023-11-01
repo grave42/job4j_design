@@ -20,16 +20,13 @@ public class EchoServer {
                              new InputStreamReader(socket.getInputStream()))) {
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                     String str = in.readLine();
-                    Pattern pattern = Pattern.compile("msg=[^ ]+");
-                    Matcher matcher = pattern.matcher(str);
-                    if (matcher.find()) {
-                        List<String> params = List.of(matcher.group().split("="));
-                        if ("msg".contains(params.get(0)) && "Exit".contains(params.get(1))) {
+                    if (str != null && !str.isEmpty()) {
+                        if (str.contains("msg=Exit")) {
                             server.close();
-                        } else if ("msg".contains(params.get(0)) && "Hello".contains(params.get(1))) {
+                        } else if (str.contains("msg=Hello")) {
                             out.write("Hello, dear friend.".getBytes());
                         } else {
-                            out.write(String.format("%s", params.get(1)).getBytes());
+                            out.write(String.format("%s", str).getBytes());
                         }
                     } else {
                         System.out.println(str);
