@@ -28,4 +28,24 @@ public class Intercom {
                 + ", statuses=" + Arrays.toString(statuses)
                 + '}';
     }
+
+    public boolean isCall() {
+        return call;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public HwFw getHwFw() {
+        return hwFw;
+    }
+
+    public String[] getStatuses() {
+        return statuses;
+    }
 }

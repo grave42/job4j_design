@@ -17,4 +17,12 @@ public class HwFw {
                 + ", fw='" + fw + '\''
                 + '}';
     }
+
+    public String getHw() {
+        return hw;
+    }
+
+    public String getFw() {
+        return fw;
+    }
 }
