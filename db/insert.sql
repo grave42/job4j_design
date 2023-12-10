@@ -1,0 +1,1 @@
+insert into devices(model, os_version, created) values ('Xiaomi', 13, CURRENT_TIMESTAMP)

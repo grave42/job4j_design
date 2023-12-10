@@ -1,0 +1,1 @@
+update devices set model = 'iPhone'
