@@ -13,33 +13,43 @@ create table products (
     price integer
 );
 
+create or replace function tax()
+    returns trigger as
+$$
+BEGIN
+update products
+set price = price + 13.0;
+return new;
+END;
+$$
+LANGUAGE 'plpgsql';
+
 create trigger tax_trigger
     after insert on products
     referencing new table as inserted
     for each statement
     execute procedure tax();
-	
-create or replace function tax()
-    returns trigger as
-$$
-    BEGIN
-        update products
-        set price = price + 13.0;
-        return new;
-    END;
-$$
-LANGUAGE 'plpgsql';
 
 insert into products (name, producer, count, price) VALUES ('product_1', 'producer_1', 3, 50);
 insert into products (name, producer, count, price) VALUES ('product_2', 'producer_2', 3, 100);
 
 select * from products
 
+create or replace function tax2()
+    returns trigger as
+$$
+BEGIN
+new.price = new.price + 13.0;
+return new;
+END;
+$$
+LANGUAGE 'plpgsql';
+
 create trigger tax_trigger2
     before insert
     on products
     for each row
-    execute procedure tax();
+    execute procedure tax2();
 	
 insert into products (name, producer, count, price) VALUES ('product_3', 'producer_3', 3, 20);
 
