@@ -19,6 +19,7 @@ $$
 BEGIN
 update products
 set price = price + 13.0;
+where id in (select id from inserted)
 return new;
 END;
 $$
