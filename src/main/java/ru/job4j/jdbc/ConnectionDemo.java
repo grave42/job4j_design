@@ -11,7 +11,7 @@ public class ConnectionDemo {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Config app = new Config("data/app.properties");
         app.load();
-        Class.forName("org.postgresql.Driver");
+        Class.forName(app.value("driver_class"));
         String url = app.value("url_db");
         String login = app.value("login_db");
         String password = app.value("password_db");
