@@ -21,11 +21,10 @@ public class ImportDB {
         try (BufferedReader reader = new BufferedReader(new FileReader(dump))) {
             reader.lines().forEach(line -> {
                 String[] userData = line.split(";");
-                if (userData.length == 2 && !userData[0].isEmpty() && !userData[1].isEmpty()) {
-                    users.add(new User(userData[0], userData[1]));
-                } else {
+                if (userData.length != 2 && userData[0].isEmpty() && userData[1].isEmpty()) {
                     throw new IllegalArgumentException("Некорректные данные в строке: " + line);
                 }
+                users.add(new User(userData[0], userData[1]));
             });
         }
         return users;
