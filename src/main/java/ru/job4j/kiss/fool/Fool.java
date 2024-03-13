@@ -10,15 +10,15 @@ public class Fool {
         Scanner input = new Scanner(System.in);
 
         while (startAt < 100) {
-            String expectedAnswer = getExpectedAnswer(startAt);
-            System.out.println(expectedAnswer);
+            String compAnswer = getExpectedAnswer(startAt);
+            System.out.println(compAnswer);
+            startAt++;
+            String expectedPlayerAnswer = getExpectedAnswer(startAt);
             String answer = input.nextLine();
-
-            if (!expectedAnswer.equals(answer)) {
+            if (!expectedPlayerAnswer.equals(answer)) {
                 System.out.println("Ошибка. Начинай снова.");
                 startAt = 0;
             }
-
             startAt++;
         }
     }
