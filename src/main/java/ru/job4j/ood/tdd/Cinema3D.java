@@ -19,4 +19,9 @@ public class Cinema3D implements Cinema {
     public void add(Session session) {
 
     }
+
+    @Override
+    public List<Session> getSessions() {
+        return null;
+    }
 }
