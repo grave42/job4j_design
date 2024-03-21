@@ -3,6 +3,14 @@ package ru.job4j.ood.ocp;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/** Нарушение OCP: новая функциональность требует добавления поля
+ * Допустим, теперь требуется учитывать скидку на товары
+ *  При этом добавление нового поля для скидки приведет к модификации класса ShoppingCart
+ * и нарушению принципа OCP
+ * private double discount
+ */
+
 public class Product {
     private String name;
     private double price;
@@ -45,10 +53,4 @@ class ShoppingCart {
         }
         return total;
     }
-
-    // Нарушение OCP: новая функциональность требует добавления поля
-    // Допустим, теперь требуется учитывать скидку на товары
-    // При этом добавление нового поля для скидки приведет к модификации класса ShoppingCart
-    // и нарушению принципа OCP
-    // private double discount;
 }
