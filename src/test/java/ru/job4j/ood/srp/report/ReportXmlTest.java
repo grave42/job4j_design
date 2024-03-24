@@ -20,18 +20,24 @@ class ReportXmlTest {
         MemoryStore store = new MemoryStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
+        Employee worker2 = new Employee("Anna", now, now, 500);
         DateTimeParser<Calendar> parser = new ReportDateTimeParser();
         store.add(worker);
+        store.add(worker2);
         Report engine = new ReportXml(store, parser);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-        String formattedDate = dateFormat.format(now.getTime());
         String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
                 + "<employees>\n"
                 + "    <employee>\n"
-                + "        <fired>" + formattedDate + "</fired>\n"
-                + "        <hired>" + formattedDate + "</hired>\n"
+                + "        <fired>" + parser.parse(worker.getFired()) + "</fired>\n"
+                + "        <hired>" + parser.parse(worker.getHired()) + "</hired>\n"
                 + "        <name>" + worker.getName() + "</name>\n"
                 + "        <salary>" + worker.getSalary() + "</salary>\n"
+                + "    </employee>\n"
+                + "    <employee>\n"
+                + "        <fired>" + parser.parse(worker.getFired()) + "</fired>\n"
+                + "        <hired>" + parser.parse(worker.getHired()) + "</hired>\n"
+                + "        <name>" + worker2.getName() + "</name>\n"
+                + "        <salary>" + worker2.getSalary() + "</salary>\n"
                 + "    </employee>\n"
                 + "</employees>\n";
         assertThat(engine.generate(employee -> true)).isEqualTo(expected.toString());
