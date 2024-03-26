@@ -21,16 +21,24 @@ class ReportJsonTest {
         MemoryStore store = new MemoryStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
+        Employee worker2 = new Employee("Vovka", now, now, 400);
         DateTimeParser<Calendar> parser = new ReportDateTimeParser();
         store.add(worker);
+        store.add(worker2);
         Report engine = new ReportJson(store, parser);
         JSONArray expected = new JSONArray();
         JSONObject expectedJson = new JSONObject();
+        JSONObject expectedJson2 = new JSONObject();
         expectedJson.put("name", worker.getName());
         expectedJson.put("hired", parser.parse(worker.getHired()));
         expectedJson.put("fired", parser.parse(worker.getFired()));
         expectedJson.put("salary", worker.getSalary());
+        expectedJson2.put("name", worker2.getName());
+        expectedJson2.put("hired", parser.parse(worker2.getHired()));
+        expectedJson2.put("fired", parser.parse(worker2.getFired()));
+        expectedJson2.put("salary", worker2.getSalary());
         expected.put(expectedJson);
+        expected.put(expectedJson2);
         assertThat(engine.generate(employee -> true)).isEqualTo(expected.toString());
     }
 
