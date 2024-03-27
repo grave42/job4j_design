@@ -53,6 +53,6 @@ class Square extends Rectangle {
 public class Example1 {
     public static void main(String[] args) {
         Rectangle rectangle = new Square();
-        rectangle.setWidth(-5); // Ошибка: выбрасывается исключение IllegalArgumentException
+        rectangle.setWidth(-5);
     }
 }

@@ -25,7 +25,7 @@ class Car extends Vehicle {
     @Override
     public void setSpeed(int speed) {
         if (speed < 0 || speed > 150) {
-            speed = Math.max(0, Math.min(150, speed)); // Ограничиваем скорость от 0 до 150
+            speed = Math.max(0, Math.min(150, speed));
         }
         this.speed = speed;
     }

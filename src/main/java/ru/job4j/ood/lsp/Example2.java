@@ -21,6 +21,6 @@ class Ostrich extends Bird {
 public class Example2 {
     public static void main(String[] args) {
         Bird bird = new Ostrich();
-        bird.fly(); // Ошибка: выбрасывается исключение UnsupportedOperationException
+        bird.fly();
     }
 }
