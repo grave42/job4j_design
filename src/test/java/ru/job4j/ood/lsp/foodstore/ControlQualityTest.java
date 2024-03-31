@@ -50,7 +50,7 @@ class ControlQualityTest {
         Food milk = new Milk("Milk", LocalDate.of(2024, 3, 30), LocalDate.of(2024, 3, 1), 90.0);
         ControlQuality controlProduct = new ControlQuality(milk, stores);
         controlProduct.checkFoodAndAddToStore();
-        boolean containsMilk = stores.get(0).getProducts().stream().anyMatch(product -> product.getName().equalsIgnoreCase("Milk"));
+        boolean containsMilk = stores.get(2).getProducts().stream().anyMatch(product -> product.getName().equalsIgnoreCase("Milk"));
         assertTrue(containsMilk, "List should contain 'Milk'");
     }
 
@@ -63,7 +63,7 @@ class ControlQualityTest {
         controlProduct.checkFoodAndAddToStore();
         controlProduct2.checkFoodAndAddToStore();
         boolean containsMilk = stores.get(0).getProducts().stream().anyMatch(product -> product.getName().equalsIgnoreCase("Bread"));
-        assertTrue(containsMilk, "List should contain 'Milk'");
+        assertTrue(containsMilk, "List should contain 'Bread'");
     }
 
 }
