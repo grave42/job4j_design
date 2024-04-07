@@ -24,4 +24,11 @@ public class ControlQuality {
             }
         }
     }
+
+    public void resort() {
+        for (Store store : stores) {
+            List<Food> allProducts = store.getProducts();
+            allProducts.forEach(store::resort);
+        }
+    }
 }

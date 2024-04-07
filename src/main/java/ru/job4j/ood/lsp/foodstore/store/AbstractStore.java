@@ -22,4 +22,8 @@ abstract class AbstractStore implements Store {
     public List<Food> getProducts() {
         return products;
     }
+
+    public void restore(Food product) {
+        products.add(product);
+    }
 }

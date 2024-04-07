@@ -9,4 +9,6 @@ public interface Store {
     void addProduct(Food product);
     boolean checkStore(Food product);
     List<Food> getProducts();
+
+    void resort(Food product);
 }

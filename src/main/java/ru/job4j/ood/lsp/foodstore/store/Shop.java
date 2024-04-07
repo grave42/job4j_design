@@ -27,4 +27,9 @@ public class Shop extends AbstractStore {
         }
         return result;
     }
+
+    @Override
+    public void resort(Food product) {
+        products.forEach(prod -> addProduct(product));
+    }
 }
