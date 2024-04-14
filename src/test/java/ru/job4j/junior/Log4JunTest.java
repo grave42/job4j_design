@@ -1,13 +1,22 @@
 package ru.job4j.junior;
 
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class Log4JunTest {
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+
+    @BeforeEach
+    public void setUp() {
+        System.setOut(new PrintStream(outputStreamCaptor));
+    }
 
     @Test
     public void testLoggerCreation() {
@@ -19,22 +28,14 @@ class Log4JunTest {
     public void testInfoLogMessage() {
         Log4Jun logger = new Log4Jun(new ConsoleLogAppender(), LogLevel.INFO);
         logger.info("Test message");
-        assertTrue(logger.getLogs().contains("[INFO] Test message"));
+        assertEquals(String.format("[%s] Test message", LogLevel.INFO), outputStreamCaptor.toString().trim());
     }
 
     @Test
     public void testDebugLogMessage() {
         Log4Jun logger = new Log4Jun(new ConsoleLogAppender(), LogLevel.DEBUG);
         logger.debug("Test message");
-        assertTrue(logger.getLogs().contains("[DEBUG] Test message"));
-    }
-
-    @Test
-    public void testClearLogs() {
-        Log4Jun logger = new Log4Jun(new ConsoleLogAppender(), LogLevel.INFO);
-        logger.warning("Test message");
-        logger.clearLogs();
-        assertTrue(logger.getLogs().isEmpty());
+        assertEquals(String.format("[%s] Test message", LogLevel.DEBUG), outputStreamCaptor.toString().trim());
     }
 
     @Test
@@ -42,9 +43,9 @@ class Log4JunTest {
         Log4Jun logger = new Log4Jun(new ConsoleLogAppender(), LogLevel.WARNING);
         logger.debug("Debug message");
         logger.info("Info message");
-        assertTrue(logger.getLogs().isEmpty());
+        assertTrue(outputStreamCaptor.toString().trim().isEmpty());
         logger.error("Error message");
-        assertTrue(logger.getLogs().contains("[ERROR] Error message"));
+        assertEquals(String.format("[%s] Error message", LogLevel.ERROR), outputStreamCaptor.toString().trim());
     }
 
     @Test
@@ -53,6 +54,6 @@ class Log4JunTest {
         logger.debug("Debug message");
         logger.setMinLogLevel(LogLevel.WARNING);
         logger.debug("Another debug message");
-        assertTrue(logger.getLogs().isEmpty());
+        assertTrue(outputStreamCaptor.toString().trim().isEmpty());
     }
 }

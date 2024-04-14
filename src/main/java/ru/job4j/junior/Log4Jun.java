@@ -49,16 +49,6 @@ public class Log4Jun implements LoggerInterface {
         appender.append(message);
     }
 
-    @Override
-    public List<String> getLogs() {
-        return logs;
-    }
-
-    @Override
-    public void clearLogs() {
-        logs.clear();
-    }
-
     public void setMinLogLevel(LogLevel minLogLevel) {
         this.minLogLevel = minLogLevel;
     }
