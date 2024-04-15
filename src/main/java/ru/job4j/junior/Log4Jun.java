@@ -5,13 +5,11 @@ import java.util.List;
 
 public class Log4Jun implements LoggerInterface {
 
-    private final List<String> logs;
-    private Appender appender;
+    private List<Appender> appenders;
     private LogLevel minLogLevel;
 
-    public Log4Jun(Appender appender, LogLevel minLogLevel) {
-        this.logs = new ArrayList<>();
-        this.appender = appender;
+    public Log4Jun(List<Appender> appenders, LogLevel minLogLevel) {
+        this.appenders = appenders;
         this.minLogLevel = minLogLevel;
     }
 
@@ -38,15 +36,13 @@ public class Log4Jun implements LoggerInterface {
     private void logWithLevel(LogLevel level, String message) {
         if (level.ordinal() >= minLogLevel.ordinal()) {
             String formattedMessage = String.format("[%s] %s", level.name(), message);
-            logs.add(formattedMessage);
-            appender.append(formattedMessage);
+            appenders.forEach(appender -> appender.append(formattedMessage));
         }
     }
 
     @Override
     public void log(String message) {
-        logs.add(message);
-        appender.append(message);
+        appenders.forEach(appender -> appender.append(message));
     }
 
     public void setMinLogLevel(LogLevel minLogLevel) {
