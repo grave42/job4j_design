@@ -50,13 +50,4 @@ class Log4JunTest {
         logger.error("Error message");
         assertEquals(String.format("[%s] Error message", LogLevel.ERROR), outputStreamCaptor.toString().trim());
     }
-
-    @Test
-    public void testSetMinLogLevel() {
-        Log4Jun logger = new Log4Jun(appenders, LogLevel.INFO);
-        logger.debug("Debug message");
-        logger.setMinLogLevel(LogLevel.WARNING);
-        logger.debug("Another debug message");
-        assertTrue(outputStreamCaptor.toString().trim().isEmpty());
-    }
 }

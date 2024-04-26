@@ -44,8 +44,4 @@ public class Log4Jun implements LoggerInterface {
     public void log(String message) {
         appenders.forEach(appender -> appender.append(message));
     }
-
-    public void setMinLogLevel(LogLevel minLogLevel) {
-        this.minLogLevel = minLogLevel;
-    }
 }
